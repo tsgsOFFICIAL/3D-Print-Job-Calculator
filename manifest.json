@@ -7,7 +7,7 @@
   "display": "standalone",
   "orientation": "portrait",
   "scope": ".",
-  "start_url": "/3D-Print-Job-Calculator",
+  "start_url": "https://tsgsofficial.github.io/3D-Print-Job-Calculator/",
   "screenshots": [
     {
       "src": "assets/pwa/screenshots/screenshot 1.png",
