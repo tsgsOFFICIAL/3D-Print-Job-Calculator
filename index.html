@@ -9,24 +9,23 @@
         <meta name="theme-color" content="#4CAF50" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Open Graph -->
-        <meta name="og:image" content="/assets/img/logo.png">
+        <meta name="og:image" content="./assets/img/logo.png">
         <!-- Links -->
-        <link rel="icon" href="/assets/img/logo.png">
-        <link rel="apple-touch-icon" href="/assets/img/logo.png">
-        <link rel="manifest" href="/manifest.json">
-        <link rel="stylesheet" href="/css/variables.css">
-        <link rel="stylesheet" href="/css/animations.css">
-        <link rel="stylesheet" href="/css/main.css">
-        <link rel="stylesheet" href="/css/pwa.css">
-        <link rel="stylesheet" href="/css/toast.css">
-        <link rel="stylesheet" href="/css/blur-load.css">
-        <link rel="stylesheet" href="/css/main.css">
-        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-        <script type="text/javascript" src="/js/notifications.js"></script>
-        <script type="text/javascript" src="/js/main.js" defer></script>
-        <script type="text/javascript" src="/js/img-loader.js" defer></script>
-        <script type="text/javascript" src="/js/cookie.js" defer></script>
-        <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script> -->
+        <link rel="icon" href="./assets/img/logo.png">
+        <link rel="apple-touch-icon" href="./assets/img/logo.png">
+        <link rel="manifest" href="./manifest.json">
+        <link rel="stylesheet" href="./css/variables.css">
+        <link rel="stylesheet" href="./css/animations.css">
+        <link rel="stylesheet" href="./css/main.css">
+        <link rel="stylesheet" href="./css/pwa.css">
+        <link rel="stylesheet" href="./css/toast.css">
+        <link rel="stylesheet" href="./css/blur-load.css">
+        <link rel="stylesheet" href="./css/main.css">
+        <script type="text/javascript" src="./js/notifications.js"></script>
+        <script type="text/javascript" src="./js/main.js" defer></script>
+        <script type="text/javascript" src="./js/img-loader.js" defer></script>
+        <script type="text/javascript" src="./js/cookie.js" defer></script>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
     </head>
     <body ontouchstart>
         <!-- PWA Install Prompt -->
@@ -129,11 +128,11 @@
         </main>
 
         <script>
-            const version = '0.0.1';
+            const version = '0.0.2';
 
             if ('serviceWorker' in navigator) {
                 window.addEventListener("load", () => {
-                    navigator.serviceWorker.register('/pwa-sw.js', { scope: '.' })
+                    navigator.serviceWorker.register('./pwa-sw.js', { scope: '.' })
                         .then(res => console.log("service worker registered"))
                         .catch(err => console.warn("service worker not registered", err));
                 });
