@@ -7,7 +7,7 @@
   "display": "standalone",
   "orientation": "portrait",
   "scope": ".",
-  "start_url": "/",
+  "start_url": "./",
   "screenshots": [
     {
       "src": "assets/pwa/screenshots/screenshot 1.png",
