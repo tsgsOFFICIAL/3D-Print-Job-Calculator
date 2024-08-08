@@ -1,4 +1,4 @@
-const version = '0.0.9';
+const version = '0.1.0';
 const cacheName = '3d-print-cost-calculator-cache';
 const assets = [
     './',
@@ -27,6 +27,7 @@ const assets = [
     './js/img-loader.js',
     './js/main.js',
     './js/notifications.js',
+    'https://unpkg.com/vue@3/dist/vue.global.prod.js',
 ];
 
 // Cache all the files to make a PWA
