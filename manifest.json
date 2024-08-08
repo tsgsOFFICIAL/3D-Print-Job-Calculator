@@ -6,7 +6,7 @@
   "background_color": "#121212",
   "display": "standalone",
   "orientation": "portrait",
-  "scope": ".",
+  "scope": "/3D-Print-Job-Calculator",
   "start_url": "https://tsgsofficial.github.io/3D-Print-Job-Calculator/",
   "screenshots": [
     {
