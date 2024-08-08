@@ -1,0 +1,50 @@
+/* PWA Prompt */
+#pwa-install-banner,
+#pwa-install-banner.hidden {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    #pwa-install-banner.visible {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: space-between;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 9999;
+        background: white;
+        padding: 15px;
+        box-shadow: 0px 0px 6px ghostwhite;
+        background-color: #191919;
+        animation: slideUp .69s ease;
+        line-height: 1.4;
+    }
+
+    #pwa-install-banner.animateOut {
+        animation: slideDown .69s ease;
+    }
+
+    #pwa-install-banner img {
+        width: 32px;
+        aspect-ratio: 1/1;
+    }
+
+    #pwa-install-banner .content {
+        display: flex;
+        flex-flow: column nowrap;
+        font-size: 15px;
+    }
+
+    /* Native look */
+    #pwa-install-banner>.call-to-action>button {
+        background: var(--primary-color);
+        color: ghostwhite;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6.9px;
+        font-size: 15px;
+    }
+}

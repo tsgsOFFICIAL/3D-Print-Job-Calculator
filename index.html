@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <title>3D Print Cost Calculator</title>
+        <!-- Meta -->
+        <meta charset="utf-8">
+        <meta name="description" content="Calculate the cost of your 3D prints with this handy calculator. Input the filament cost, density, weight, print time, power consumption, electricity rate, printer cost, printer lifespan, maintenance cost, labor cost, overhead costs, print failure rate, and miscellaneous costs to get the total cost and a breakdown.">
+        <meta name="robots" content="index, follow">
+        <meta name="theme-color" content="#4CAF50" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Open Graph -->
+        <meta name="og:image" content="/assets/img/logo.png">
+        <!-- Links -->
+        <link rel="icon" href="/assets/img/logo.png">
+        <link rel="apple-touch-icon" href="/assets/img/logo.png">
+        <link rel="manifest" href="/manifest.json">
+        <link rel="stylesheet" href="/css/variables.css">
+        <link rel="stylesheet" href="/css/animations.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/css/pwa.css">
+        <link rel="stylesheet" href="/css/toast.css">
+        <link rel="stylesheet" href="/css/blur-load.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script type="text/javascript" src="/js/notifications.js"></script>
+        <script type="text/javascript" src="/js/main.js" defer></script>
+        <script type="text/javascript" src="/js/img-loader.js" defer></script>
+        <script type="text/javascript" src="/js/cookie.js" defer></script>
+        <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script> -->
+    </head>
+    <body ontouchstart>
+        <!-- PWA Install Prompt -->
+        <article id="pwa-install-banner" class="hidden">
+            <article class="blur-load" style="background-image: url('/assets/img/icon-close-min.png')">
+                <img id="pwa-close-prompt" src="/assets/img/icon-close.png" alt="close icon" loading="lazy" />
+            </article>
+
+            <section class="content">
+                <span class="title">3D Print Cost Calculator</span>
+                <span class="description">Calculate the cost of your 3D prints.</span>
+            </section>
+
+            <section class="call-to-action">
+                <button id="pwa-install-button" type="button">Install App</button>
+            </section>
+        </article>
+
+        <main id="app">
+            <article class="flex vert">
+                <section class="header">
+                    <h1>3D Print Cost Calculator <small>v{{ version }}</small></h1>
+                    <h3>by tsgsOFFICIAL</h3>
+                </section>
+
+                <section>
+                    <label>Filament Cost ($/kg): </label>
+                    <input v-model.number="filamentCost" type="number" />
+                </section>
+
+                <section>
+                    <label>Filament Density (g/cm³): </label>
+                    <input v-model.number="filamentDensity" type="number" />
+                </section>
+
+                <section>
+                    <label>Filament Weight (g): </label>
+                    <input v-model.number="filamentWeight" type="number" />
+                </section>
+
+                <section>
+                    <label>Print Time (hours): </label>
+                    <input v-model.number="printTime" type="number" />
+                </section>
+
+                <section>
+                    <label>Power Consumption (W): </label>
+                    <input v-model.number="powerConsumption" type="number" />
+                </section>
+
+                <section>
+                    <label>Electricity Rate ($/kWh): </label>
+                    <input v-model.number="electricityRate" type="number" />
+                </section>
+
+                <section>
+                    <label>Printer Purchase Cost ($): </label>
+                    <input v-model.number="printerCost" type="number" />
+                </section>
+
+                <section>
+                    <label>Printer Lifespan (years): </label>
+                    <input v-model.number="printerLifespan" type="number" />
+                </section>
+
+                <section>
+                    <label>Annual Maintenance Cost ($): </label>
+                    <input v-model.number="maintenanceCost" type="number" />
+                </section>
+
+                <section>
+                    <label>Labor Cost ($/hour): </label>
+                    <input v-model.number="laborCost" type="number" />
+                </section>
+
+                <section>
+                    <label>Overhead Costs ($): </label>
+                    <input v-model.number="overheadCosts" type="number" />
+                </section>
+
+                <section>
+                    <label>Print Failure Rate (%): </label>
+                    <input v-model.number="printFailureRate" type="number" />
+                </section>
+
+                <section>
+                    <label>Miscellaneous Costs ($): </label>
+                    <input v-model.number="miscellaneousCosts" type="number" />
+                </section>
+
+                <section class="header">
+                    <h2>Total Cost: ${{ totalCost.toFixed(2) }}</h2>
+                    <h3>Cost Breakdown:</h3>
+                </section>
+
+                <ul>
+                    <li v-for="(value, key) in breakdown" :key="key">{{ key }}: ${{ value.toFixed(2) }}</li>
+                </ul>
+            </article>
+        </main>
+
+        <script>
+            const version = '0.0.1';
+
+            if ('serviceWorker' in navigator) {
+                window.addEventListener("load", () => {
+                    navigator.serviceWorker.register('/pwa-sw.js', { scope: '.' })
+                        .then(res => console.log("service worker registered"))
+                        .catch(err => console.warn("service worker not registered", err));
+                });
+            }
+
+            const {
+                createApp
+            } = Vue;
+
+            const app = createApp({
+                data() {
+                    return {
+                        version: version,
+                        filamentCost: 20, // $/kg
+                        filamentDensity: 1.27, // g/cm^3 (PLA as example)
+                        filamentWeight: 100, // g
+                        printTime: 10, // hours
+                        powerConsumption: 150, // watts
+                        electricityRate: 0.12, // $/kWh
+                        printerCost: 500, // $
+                        printerLifespan: 5, // years
+                        maintenanceCost: 50, // $/year
+                        laborCost: 20, // $/hour
+                        overheadCosts: 10, // $
+                        printFailureRate: 10, // %
+                        miscellaneousCosts: 5, // $
+                    };
+                },
+                computed: {
+                    totalCost() {
+                        const filamentCost = this.filamentCost * (this.filamentWeight / 1000);
+                        const powerCost = (this.powerConsumption / 1000) * this.printTime * this.electricityRate;
+                        const depreciationCost = (this.printerCost / (this.printerLifespan * 8760)) * this.printTime;
+                        const maintenanceCost = (this.maintenanceCost / 8760) * this.printTime; // Annual cost spread over hours in a year
+                        const laborCost = this.laborCost * this.printTime;
+                        const failureCost = filamentCost * (this.printFailureRate / 100);
+
+                        return filamentCost + powerCost + depreciationCost + maintenanceCost + laborCost + this.overheadCosts + failureCost + this.miscellaneousCosts;
+                    },
+                    breakdown() {
+                        const filamentCost = this.filamentCost * (this.filamentWeight / 1000);
+                        const powerCost = (this.powerConsumption / 1000) * this.printTime * this.electricityRate;
+                        const depreciationCost = (this.printerCost / (this.printerLifespan * 8760)) * this.printTime;
+                        const maintenanceCost = (this.maintenanceCost / 8760) * this.printTime; // Annual cost spread over hours in a year
+                        const laborCost = this.laborCost * this.printTime;
+                        const failureCost = filamentCost * this.printFailureRate;
+
+                        return {
+                            FilamentCost: filamentCost,
+                            PowerCost: powerCost,
+                            DepreciationCost: depreciationCost,
+                            MaintenanceCost: maintenanceCost,
+                            LaborCost: laborCost,
+                            OverheadCosts: this.overheadCosts,
+                            FailureCost: failureCost,
+                            MiscellaneousCosts: this.miscellaneousCosts,
+                            TotalCost: filamentCost + powerCost + depreciationCost + maintenanceCost + laborCost + this.overheadCosts + failureCost + this.miscellaneousCosts
+                        };
+                    }
+                },
+            }).mount("#app");
+        </script>
+    </body>
+</html>

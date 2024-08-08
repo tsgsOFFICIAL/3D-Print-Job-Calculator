@@ -1,0 +1,31 @@
+/* Image loading */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    object-position: center;
+    object-fit: cover;
+}
+
+.blur-load {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    background-position: center;
+    background-size: cover;
+    animation: pulse-load 1.5s infinite;
+}
+
+.blur-load.loaded {
+    animation: none;
+    background: none;
+}
+
+.blur-load>img {
+    opacity: 0;
+    transition: opacity .33s ease-in-out;
+}
+
+.blur-load.loaded>img {
+    opacity: 1;
+}

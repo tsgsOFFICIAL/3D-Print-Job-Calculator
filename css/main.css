@@ -1,0 +1,91 @@
+/* Remove all margins and paddings & Remove blue highlight on mobile & Change the default font-family & color */
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    font-family: "WorkSans", sans-serif;
+}
+
+/* Stretch to fill the entire page */
+html,
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Apply the color variables */
+body {
+    padding: 20px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+/* Remove all link styling */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Remove style from lists */
+ul,
+ol {
+    list-style: none;
+}
+
+.flex.vert {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+h1 {
+    font-size: 1.69rem;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+small {
+    font-size: .69em;
+}
+
+label {
+    color: var(--label-color);
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    background-color: var(--input-background);
+    border: 1px solid var(--input-border);
+    color: var(--text-color);
+}
+
+h1,
+h2,
+h3 {
+    color: var(--heading-color);
+}
+
+li {
+    margin: 10px 0;
+    padding: 5px;
+    background-color: var(--list-item-background);
+    border-radius: 4px;
+}
+
+.header:last-of-type {
+    margin-top: 20px;
+}

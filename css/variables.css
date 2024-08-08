@@ -1,0 +1,28 @@
+/* Define color variables for light mode */
+:root {
+    --background-color: #FFF;
+    --text-color: #333333;
+    --label-color: #666666;
+    --input-background: #F5F5F5;
+    --input-border: #CCC;
+    --heading-color: #4CAF50;
+    --list-item-background: #F0F0F0;
+    --primary-color: #4CAF50;
+    --info-color: #0056b3;
+    --success-color: #00b34a;
+    --warning-color: #b37400;
+    --error-color: #cc0000;
+}
+
+/* Define color variables for dark mode */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #121212;
+        --text-color: #E0E0E0;
+        --label-color: #B0B0B0;
+        --input-background: #1E1E1E;
+        --input-border: #333333;
+        --heading-color: #4CAF50;
+        --list-item-background: #1E1E1E;
+    }
+}
