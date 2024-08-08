@@ -122,18 +122,18 @@
                 </section>
 
                 <section class="header">
-                    <h2>Total Cost: ${{ totalCost.toFixed(2) }}</h2>
+                    <h2>Total Cost: ${{ isNaN(totalCost) ? 'Missing Info' : Number(totalCost).toFixed(2) }}</h2>
                     <h3>Cost Breakdown:</h3>
                 </section>
 
                 <ul>
-                    <li v-for="(value, key) in breakdown" :key="key">{{ key }}: ${{ value.toFixed(2) }}</li>
+                    <li v-for="(value, key) in breakdown" :key="key">{{ key }}: ${{ isNaN(value) ? 'Missing Info' : Number(value).toFixed(2) }}</li>
                 </ul>
             </article>
         </main>
 
         <script>
-            const version = '0.0.8';
+            const version = '0.0.9';
 
             if ('serviceWorker' in navigator) {
                 window.addEventListener("load", () => {
@@ -197,7 +197,7 @@
                             MiscellaneousCosts: this.miscellaneousCosts,
                             TotalCost: filamentCost + powerCost + depreciationCost + maintenanceCost + laborCost + this.overheadCosts + failureCost + this.miscellaneousCosts
                         };
-                    }
+                    },
                 },
             }).mount("#app");
         </script>
