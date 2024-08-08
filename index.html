@@ -52,67 +52,72 @@
                 </section>
 
                 <section>
-                    <label>Filament Cost ($/kg): </label>
+                    <label>Filament Cost ($/kg):</label>
                     <input v-model.number="filamentCost" type="number" />
                 </section>
 
                 <section>
-                    <label>Filament Density (g/cm³): </label>
+                    <label>Filament Density (g/cm³):</label>
                     <input v-model.number="filamentDensity" type="number" />
                 </section>
 
                 <section>
-                    <label>Filament Weight (g): </label>
+                    <label>Filament Used (g):</label>
                     <input v-model.number="filamentWeight" type="number" />
                 </section>
 
                 <section>
-                    <label>Print Time (hours): </label>
+                    <label>Print Time (hours):</label>
                     <input v-model.number="printTime" type="number" />
                 </section>
 
                 <section>
-                    <label>Power Consumption (W): </label>
+                    <label>Avg. Power Consumption (W):</label>
                     <input v-model.number="powerConsumption" type="number" />
                 </section>
 
                 <section>
-                    <label>Electricity Rate ($/kWh): </label>
+                    <label>Electricity Cost ($/kWh):</label>
                     <input v-model.number="electricityRate" type="number" />
                 </section>
 
                 <section>
-                    <label>Printer Purchase Cost ($): </label>
+                    <label>Printer Purchase Cost ($):</label>
                     <input v-model.number="printerCost" type="number" />
                 </section>
 
                 <section>
-                    <label>Printer Lifespan (years): </label>
+                    <label>Printer Lifespan (years):</label>
                     <input v-model.number="printerLifespan" type="number" />
                 </section>
 
                 <section>
-                    <label>Annual Maintenance Cost ($): </label>
+                    <label>Annual Maintenance Cost ($):</label>
                     <input v-model.number="maintenanceCost" type="number" />
                 </section>
 
                 <section>
-                    <label>Labor Cost ($/hour): </label>
+                    <label>Labor Cost ($/hour):</label>
                     <input v-model.number="laborCost" type="number" />
                 </section>
 
                 <section>
-                    <label>Overhead Costs ($): </label>
+                    <label>Labor Time (hours):</label>
+                    <input v-model.number="laborTime" type="number">
+                </section>
+
+                <section>
+                    <label>Overhead Costs ($):</label>
                     <input v-model.number="overheadCosts" type="number" />
                 </section>
 
                 <section>
-                    <label>Print Failure Rate (%): </label>
+                    <label>Print Failure Rate (%):</label>
                     <input v-model.number="printFailureRate" type="number" />
                 </section>
 
                 <section>
-                    <label>Miscellaneous Costs ($): </label>
+                    <label>Miscellaneous Costs ($):</label>
                     <input v-model.number="miscellaneousCosts" type="number" />
                 </section>
 
@@ -128,7 +133,7 @@
         </main>
 
         <script>
-            const version = '0.0.7';
+            const version = '0.0.8';
 
             if ('serviceWorker' in navigator) {
                 window.addEventListener("load", () => {
@@ -156,6 +161,7 @@
                         printerLifespan: 5, // years
                         maintenanceCost: 50, // $/year
                         laborCost: 20, // $/hour
+                        laborTime: .5, // hours
                         overheadCosts: 10, // $
                         printFailureRate: 10, // %
                         miscellaneousCosts: 5, // $
@@ -167,7 +173,7 @@
                         const powerCost = (this.powerConsumption / 1000) * this.printTime * this.electricityRate;
                         const depreciationCost = (this.printerCost / (this.printerLifespan * 8760)) * this.printTime;
                         const maintenanceCost = (this.maintenanceCost / 8760) * this.printTime; // Annual cost spread over hours in a year
-                        const laborCost = this.laborCost * this.printTime;
+                        const laborCost = this.laborCost * this.laborTime;
                         const failureCost = filamentCost * (this.printFailureRate / 100);
 
                         return filamentCost + powerCost + depreciationCost + maintenanceCost + laborCost + this.overheadCosts + failureCost + this.miscellaneousCosts;
@@ -177,7 +183,7 @@
                         const powerCost = (this.powerConsumption / 1000) * this.printTime * this.electricityRate;
                         const depreciationCost = (this.printerCost / (this.printerLifespan * 8760)) * this.printTime;
                         const maintenanceCost = (this.maintenanceCost / 8760) * this.printTime; // Annual cost spread over hours in a year
-                        const laborCost = this.laborCost * this.printTime;
+                        const laborCost = this.laborCost * this.laborTime;
                         const failureCost = filamentCost * this.printFailureRate;
 
                         return {
