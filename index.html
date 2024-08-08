@@ -133,7 +133,7 @@
         </main>
 
         <script>
-            const version = '0.1.0';
+            const version = '0.1.1';
 
             if ('serviceWorker' in navigator) {
                 window.addEventListener("load", () => {
@@ -195,7 +195,7 @@
                             OverheadCosts: this.overheadCosts,
                             FailureCost: failureCost,
                             MiscellaneousCosts: this.miscellaneousCosts,
-                            TotalCost: filamentCost + powerCost + depreciationCost + maintenanceCost + laborCost + this.overheadCosts + failureCost + this.miscellaneousCosts
+                            TotalCost: this.totalCost,
                         };
                     },
                 },
