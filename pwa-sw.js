@@ -1,4 +1,4 @@
-const version = '0.1.2';
+const version = '0.1.3';
 const cacheName = '3d-print-cost-calculator-cache';
 const assets = [
     './',

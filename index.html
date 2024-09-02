@@ -312,7 +312,7 @@
             const app = createApp({
                 data() {
                     return {
-                        version: '0.1.2',
+                        version: '0.1.3',
                         currency: 'USD',
                         filamentCost: 20, // price/kg
                         filamentUsed: 100, // g
@@ -336,7 +336,7 @@
                         const depreciationCost = (this.printerCost / (this.printerLifespan * 8760)) * this.printTime;
                         const maintenanceCost = (this.maintenanceCost / 8760) * this.printTime; // Annual cost spread over hours in a year
                         const laborCost = this.laborCost * this.laborTime;
-                        const failureCost = filamentCost * (this.printFailureRate / 100);
+                        const failureCost = (powerCost + filamentCost) * (this.printFailureRate / 100);
                         const vat = (filamentCost + powerCost + depreciationCost + maintenanceCost + laborCost + failureCost + this.miscellaneousCosts) * (this.vatRate / 100);
 
                         return filamentCost + powerCost + depreciationCost + maintenanceCost + laborCost + failureCost + this.miscellaneousCosts + vat;
@@ -347,7 +347,7 @@
                         const depreciationCost = (this.printerCost / (this.printerLifespan * 8760)) * this.printTime;
                         const maintenanceCost = (this.maintenanceCost / 8760) * this.printTime; // Annual cost spread over hours in a year
                         const laborCost = this.laborCost * this.laborTime;
-                        const failureCost = filamentCost * (this.printFailureRate / 100);
+                        const failureCost = (powerCost + filamentCost) * (this.printFailureRate / 100);
                         const vat = (filamentCost + powerCost + depreciationCost + maintenanceCost + laborCost + failureCost + this.miscellaneousCosts) * (this.vatRate / 100);
 
                         return {
