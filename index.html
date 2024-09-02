@@ -24,7 +24,7 @@
         <script type="text/javascript" src="./js/notifications.js"></script>
         <script type="text/javascript" src="./js/main.js" defer></script>
         <script type="text/javascript" src="./js/img-loader.js" defer></script>
-        <script type="text/javascript" src="./js/cookie.js" defer></script>
+        <script type="text/javascript" src="./js/cookie.js"></script>
         <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
     </head>
     <body ontouchstart>
@@ -285,6 +285,14 @@
                     <input v-model.number="vatRate" type="number" />
                 </section>
 
+                <section>
+                    <label>Save Settings:</label>
+                    <span class="checkbox-slider">
+                        <input type="checkbox" id="saveAsCookie" v-model="saveAsCookie" />
+                        <label for="saveAsCookie"></label>
+                    </span>
+                </section>
+
                 <section class="header">
                     <h2>Total Cost: {{ currencyPrefix }} {{ isNaN(totalCost) ? 'Missing Info' : Number(totalCost).toFixed(2) }}</h2>
                     <h3>Cost Breakdown:</h3>
@@ -312,7 +320,8 @@
             const app = createApp({
                 data() {
                     return {
-                        version: '0.1.3',
+                        version: '0.1.4',
+                        saveAsCookie: false,
                         currency: 'USD',
                         filamentCost: 20, // price/kg
                         filamentUsed: 100, // g
@@ -374,6 +383,83 @@
                                 return this.currency;
                         }
                     },
+                },
+                methods: {
+                    getUserValues() {
+                        const values = getCookie('3d-print-cost-calculator-values');
+
+                        if (values) {
+                            const {
+                                saveAsCookie,
+                                currency,
+                                filamentCost,
+                                filamentUsed,
+                                printTime,
+                                powerConsumption,
+                                electricityRate,
+                                printerCost,
+                                printerLifespan,
+                                maintenanceCost,
+                                laborCost,
+                                laborTime,
+                                printFailureRate,
+                                miscellaneousCosts,
+                                vatRate,
+                            } = JSON.parse(values);
+
+
+                            if (getCookie('3d-print-cost-calculator-cookie-allowance')) {
+                                this.saveAsCookie = saveAsCookie;
+                                this.currency = currency;
+                                this.filamentCost = filamentCost;
+                                this.filamentUsed = filamentUsed;
+                                this.printTime = printTime;
+                                this.powerConsumption = powerConsumption;
+                                this.electricityRate = electricityRate;
+                                this.printerCost = printerCost;
+                                this.printerLifespan = printerLifespan;
+                                this.maintenanceCost = maintenanceCost;
+                                this.laborCost = laborCost;
+                                this.laborTime = laborTime;
+                                this.printFailureRate = printFailureRate;
+                                this.miscellaneousCosts = miscellaneousCosts;
+                                this.vatRate = vatRate;
+                            }
+                        }
+                    },
+                    setUserValues() {
+                        if (this.saveAsCookie) {
+                            const values = {
+                                saveAsCookie: this.saveAsCookie,
+                                currency: this.currency,
+                                filamentCost: this.filamentCost,
+                                filamentUsed: this.filamentUsed,
+                                printTime: this.printTime,
+                                powerConsumption: this.powerConsumption,
+                                electricityRate: this.electricityRate,
+                                printerCost: this.printerCost,
+                                printerLifespan: this.printerLifespan,
+                                maintenanceCost: this.maintenanceCost,
+                                laborCost: this.laborCost,
+                                laborTime: this.laborTime,
+                                printFailureRate: this.printFailureRate,
+                                miscellaneousCosts: this.miscellaneousCosts,
+                                vatRate: this.vatRate,
+                            };
+
+                            setCookie('3d-print-cost-calculator-values', JSON.stringify(values), 365);
+                            setCookie('3d-print-cost-calculator-cookie-allowance', true, 365);
+                        } else {
+                            setCookie('3d-print-cost-calculator-cookie-allowance', false, 365);
+                            removeCookie('3d-print-cost-calculator-values');
+                        }
+                    },
+                },
+                created() {
+                    this.getUserValues();
+                },
+                updated() {
+                    this.setUserValues();
                 },
             }).mount("#app");
         </script>

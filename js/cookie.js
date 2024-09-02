@@ -1,5 +1,5 @@
 // Set a cookie
-function setCookie(cname, cvalue, exdays, override) {
+function setCookie(cname, cvalue, exdays) {
     const d = new Date();
 
     d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
@@ -27,5 +27,10 @@ function getCookie(cname) {
         }
 
     }
+
     return "";
+}
+
+function removeCookie(cname) {
+    document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
